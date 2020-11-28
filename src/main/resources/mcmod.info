@@ -1,0 +1,13 @@
+[
+{
+	"modid": "lmrebellion",
+	"name": "LittleMaidRebellion",
+	"description": "Rebellious LittleMaid.",
+	"version": "${version}",
+	"mcversion": "${mcversion}",
+	"url": "https://github.com/firis-games/LittleMaidRebellion",
+	"authorList": ["firis-games"],
+	"credits": "",
+	"dependencies": []
+}
+]
