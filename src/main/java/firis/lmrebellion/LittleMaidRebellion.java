@@ -47,9 +47,9 @@ public class LittleMaidRebellion {
 
     public static final String MODID = "lmrebellion";
     public static final String NAME = "LittleMaidRebellion";
-    public static final String VERSION = "0.1.0";
+    public static final String VERSION = "0.2.0";
     public static final String MOD_DEPENDENCIES = "required-after:forge@[1.12.2-14.23.5.2768,);"
-    		+ "required-after:lmlibrary@[1.1.2,);";
+    		+ "required-after:lmlibrary@[1.1.4,);";
     public static final String MOD_ACCEPTED_MINECRAFT_VERSIONS = "[1.12.2]";
     
     @Instance(MODID)
