@@ -1,5 +1,6 @@
 package firis.lmrebellion.common.proxy;
 
+import firis.lmlib.api.caps.IGuiTextureSelect;
 import net.minecraft.entity.player.EntityPlayer;
 
 /**
@@ -13,7 +14,7 @@ public interface IProxy {
 		return null;
 	}
 	
-	default public void openGuiTextureSelect() {
+	default public void openGuiTextureSelect(IGuiTextureSelect selectEntity) {
 		
 	}
 }

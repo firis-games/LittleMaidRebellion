@@ -3,6 +3,7 @@ package firis.lmrebellion.common.entity;
 import javax.annotation.Nullable;
 
 import firis.lmlib.api.LMLibraryAPI;
+import firis.lmlib.api.caps.IGuiTextureSelect;
 import firis.lmlib.api.caps.IModelCompound;
 import firis.lmlib.api.constant.EnumColor;
 import firis.lmlib.api.constant.EnumSound;
@@ -10,6 +11,7 @@ import firis.lmlib.api.manager.LMTextureBoxManager;
 import firis.lmlib.api.resource.LMTextureBox;
 import firis.lmrebellion.common.modelcaps.ModelCapsEntityLittleMaidRebellion;
 import firis.lmrebellion.common.modelcaps.ModelCompoundEntityLittleMaidRebellion;
+import firis.lmrebellion.common.network.LMRebellionNetwork;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -47,7 +49,7 @@ import net.minecraft.world.World;
  * @author firis-games
  *
  */
-public class EntityLittleMaidRebellion extends EntityMob {
+public class EntityLittleMaidRebellion extends EntityMob implements IGuiTextureSelect {
 	
 	protected final ModelCompoundEntityLittleMaidRebellion modelCompound;
 	
@@ -310,5 +312,58 @@ public class EntityLittleMaidRebellion extends EntityMob {
 	public IModelCompound getModelCompound() {
 		this.modelCompound.setLmmmTextureWithColor(this.getLmmmTexture(), this.getLmmmColor());
 		return this.modelCompound;
+	}
+
+	@Override
+	public String getGuiTargetLittleMaidName() {
+		return this.getLmmmTexture();
+	}
+
+	@Override
+	public String getGuiTargetArmorName(EntityEquipmentSlot slot) {
+		return null;
+	}
+
+	@Override
+	public int getGuiTargetColor() {
+		return this.getLmmmColor();
+	}
+
+	@Override
+	public boolean getGuiTargetContract() {
+		return true;
+	}
+
+	/**
+	 * モデルと色を設定
+	 */
+	@Override
+	public void syncSelectTextureLittleMaid(String textureName, int color) {
+		
+		NBTTagCompound nbt = new NBTTagCompound();
+		nbt.setInteger("id", this.getEntityId());
+		nbt.setString("texture", textureName);
+		nbt.setInteger("color", color);
+		
+		//パケット送信
+		LMLibraryAPI.instance().sendPacketToServer(LMRebellionNetwork.SERVER_SYNC_TEXTURE, nbt);
+	}
+
+	/**
+	 * 防具モデルは対象外
+	 */
+	@Override
+	public void syncSelectTextureArmor(String headTextureName, String chestTextureName, String legsTextureName,
+			String feetTextureName) {
+	}
+	
+	/**
+	 * クライアントからのパケットで見た目を更新する
+	 * @param texture
+	 * @param color
+	 */
+	public void setPacketLittleMaidTexture(String texture, int color) {
+		this.setLmmmTexture(texture);
+		this.setLmmmColor(color);
 	}
 }

@@ -1,0 +1,18 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+	{
+		"item": "minecraft:sugar"
+	},
+	{
+		"item": "minecraft:dye",
+		"data": 1
+	},
+	{
+		"item": "minecraft:book"
+	}
+	],
+	"result": {
+		"item": "lmrebellion:lmr_maid_book"
+	}
+}

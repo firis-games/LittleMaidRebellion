@@ -5,7 +5,10 @@ import org.apache.logging.log4j.Logger;
 
 import firis.lmrebellion.client.renderer.RenderLittleMaidRebellion;
 import firis.lmrebellion.common.entity.EntityLittleMaidRebellion;
+import firis.lmrebellion.common.item.LMItemMaidBook;
+import firis.lmrebellion.common.network.LMRebellionNetwork;
 import firis.lmrebellion.common.proxy.IProxy;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EnumCreatureType;
@@ -13,6 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -63,8 +67,8 @@ public class LittleMaidRebellion {
      * アイテムインスタンス保持用
      */
     @ObjectHolder(MODID)
-    public static class LMAItems {
-    	public final static Item PLAYER_MAID_BOOK = null;
+    public static class LMRItems {
+    	public final static Item LMR_MAID_BOOK = null;
     }
     
     
@@ -72,7 +76,9 @@ public class LittleMaidRebellion {
     public void preInit(FMLPreInitializationEvent event) {}
     
     @EventHandler
-    public void init(FMLInitializationEvent event) {}
+    public void init(FMLInitializationEvent event) {
+    	LMRebellionNetwork.init();
+    }
     
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {}
@@ -102,6 +108,10 @@ public class LittleMaidRebellion {
      */
     @SubscribeEvent
     protected static void registerItems(RegistryEvent.Register<Item> event) {
+    	// メイドさんのおめかし本
+    	event.getRegistry().register(new LMItemMaidBook()
+    			.setRegistryName(LittleMaidRebellion.MODID, "lmr_maid_book")
+    			.setUnlocalizedName("lmr_maid_book"));
     }
     
     /**
@@ -118,6 +128,11 @@ public class LittleMaidRebellion {
 				return new RenderLittleMaidRebellion(manager);
 			}
 		});
+		
+    	// メイドさんのおめかし本
+		ModelLoader.setCustomModelResourceLocation(LMRItems.LMR_MAID_BOOK, 0,
+				new ModelResourceLocation(LMRItems.LMR_MAID_BOOK.getRegistryName(), "inventory"));
+		
     }
 	
 }

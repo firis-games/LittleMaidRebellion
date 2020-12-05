@@ -1,7 +1,7 @@
 package firis.lmrebellion.client.proxy;
 
-import firis.lmavatar.common.manager.PlayerModelManager;
 import firis.lmlib.api.LMLibraryAPI;
+import firis.lmlib.api.caps.IGuiTextureSelect;
 import firis.lmrebellion.common.proxy.IProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,12 +25,12 @@ public class ClientProxy implements IProxy {
 	 * テクスチャ設定用GUIを表示する
 	 */
 	@Override
-	public void openGuiTextureSelect() {
+	public void openGuiTextureSelect(IGuiTextureSelect selectEntity) {
 		
 		//テクスチャ選択画面表示
 		LMLibraryAPI.instance().openGuiTextureSelect(null, 
-				PlayerModelManager.getModelConfigCompound(getClientPlayer()), 
-				"LittleMaidAvatar Texture Select");
+				selectEntity, 
+				"LittleMaidRebellion Texture Select");
 		
 	}
 }
